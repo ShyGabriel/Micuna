@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "366774534467",
+    "firebase_url": "https://micuna.firebaseio.com",
+    "project_id": "micuna",
+    "storage_bucket": "micuna.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366774534467:android:32e948c6c307717dddeff6",
+        "android_client_info": {
+          "package_name": "com.example.micuna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366774534467-k3ius05resnqp05ccl80n8otqeorc0t4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.micuna",
+            "certificate_hash": "9d2e238ad1efb55a6fcaf994280139479dc84d40"
+          }
+        },
+        {
+          "client_id": "366774534467-khjdsj3ep37n3em4l1t4ir5p5r2jhs2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAioCRCVEa0hatAnmN9OTFiZlxZ2jWaCQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366774534467-khjdsj3ep37n3em4l1t4ir5p5r2jhs2u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
