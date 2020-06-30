@@ -1,4 +1,4 @@
-package com.example.micuna;
+package com.example.micuna.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.micuna.R;
 import com.example.micuna.fragments.HomeFragment;
 import com.example.micuna.fragments.OrderFragment;
 import com.example.micuna.fragments.ProfileFragment;

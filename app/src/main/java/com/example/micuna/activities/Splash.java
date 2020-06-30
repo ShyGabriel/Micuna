@@ -1,10 +1,12 @@
-package com.example.micuna;
+package com.example.micuna.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.micuna.R;
 
 public class Splash extends AppCompatActivity {
 

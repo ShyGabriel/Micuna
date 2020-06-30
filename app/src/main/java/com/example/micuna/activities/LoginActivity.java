@@ -1,4 +1,4 @@
-package com.example.micuna;
+package com.example.micuna.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.micuna.R;
+import com.example.micuna.activities.cliente.RegistroCliente;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -20,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import dmax.dialog.SpotsDialog;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     Button mButtonGoToRegister;
     TextInputEditText mTextInputEmail;
     TextInputEditText mTextInputPassword;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         mTextInputEmail = findViewById(R.id.textInputEmail);
         mTextInputPassword = findViewById(R.id.textInputPassword);
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private void login() {
         String email = mTextInputEmail.getText().toString();
         String password = mTextInputPassword.getText().toString();
-        mDialog = new SpotsDialog.Builder().setContext(MainActivity.this).setMessage("Espere un momento").build();
+        mDialog = new SpotsDialog.Builder().setContext(LoginActivity.this).setMessage("Espere un momento").build();
 
         if (!email.isEmpty() && !password.isEmpty()) {
             if (password.length() >= 6) {
@@ -70,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "El login se realizó exitosamente", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, Contenido.class);
+                            Toast.makeText(LoginActivity.this, "El login se realizó exitosamente", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, Contenido.class);
                             startActivity(intent);
                            /* String user = mPref.getString("user", "");
                             if (user.equals("client")) {
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }*/
                         } else {
-                            Toast.makeText(MainActivity.this, "La contraseña o el password son incorrectos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "La contraseña o el password son incorrectos", Toast.LENGTH_SHORT).show();
                         }
                         mDialog.dismiss();
                     }
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToRegister() {
-        Intent intent = new Intent(MainActivity.this, Registro.class);
+        Intent intent = new Intent(LoginActivity.this, RegistroCliente.class);
         startActivity(intent);
 
     }

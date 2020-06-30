@@ -1,4 +1,4 @@
-package com.example.micuna;
+package com.example.micuna.activities.cliente;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.micuna.R;
 import com.example.micuna.modelo.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import dmax.dialog.SpotsDialog;
 
-public class Registro extends AppCompatActivity {
+public class RegistroCliente extends AppCompatActivity {
     SharedPreferences mPref;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
@@ -34,13 +35,13 @@ public class Registro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro);
+        setContentView(R.layout.activity_registro_cliente);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
-        mDialog = new SpotsDialog.Builder().setContext(Registro.this).setMessage("Registrandose").build();
+        mDialog = new SpotsDialog.Builder().setContext(RegistroCliente.this).setMessage("Registrandose").build();
         mButtonRegister = findViewById(R.id.btnRegister);
         mTextInputEmail = findViewById(R.id.textInputEmail);
         mTextInputName = findViewById(R.id.textInputName);
@@ -71,11 +72,11 @@ public class Registro extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             String id = mAuth.getCurrentUser().getUid();
                             saveUser(id, name, email);
-                            Toast.makeText(Registro.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistroCliente.this, "RegistroCliente Exitoso", Toast.LENGTH_SHORT).show();
 
                         }
                         else {
-                            Toast.makeText(Registro.this, "No se pudo registrar", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistroCliente.this, "No se pudo registrar", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -99,10 +100,10 @@ public class Registro extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(Registro.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistroCliente.this, "RegistroCliente exitoso", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(Registro.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistroCliente.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -112,10 +113,10 @@ public class Registro extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(Registro.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistroCliente.this, "RegistroCliente exitoso", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(Registro.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistroCliente.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
