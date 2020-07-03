@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.micuna.R;
 import com.example.micuna.activities.cliente.RegistroCliente;
+import com.example.micuna.activities.conductor.RegistroConductor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity {
+    SharedPreferences mPref;
     Button mButtonGoToRegister;
     TextInputEditText mTextInputEmail;
     TextInputEditText mTextInputPassword;
@@ -43,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
+
+
 
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,8 +107,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToRegister() {
-        Intent intent = new Intent(LoginActivity.this, RegistroCliente.class);
-        startActivity(intent);
+
+        String typeUser = mPref.getString("user", "");
+        if (typeUser.equals("client")) {
+            Intent intent = new Intent(LoginActivity.this, RegistroCliente.class);
+            startActivity(intent);
+        }
+        else if(typeUser.equals("driver")){
+            Intent intent = new Intent(LoginActivity.this, RegistroConductor.class);
+            startActivity(intent);
+        }
 
     }
 }
