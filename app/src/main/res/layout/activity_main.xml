@@ -34,22 +34,22 @@
                 <Button
                     android:id="@+id/btnLoginCliente"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:text="Cliente"
                     android:gravity="center"
                     android:background="@drawable/bgcolormain"
                     android:textColor="@color/colorBlanco"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:layout_margin="5dp"
 
                     />
                 <Button
                     android:id="@+id/btnLoginConductor"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:text="Conductor"
                     android:gravity="center"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:background="@drawable/bgcolorsecond"
                     android:textColor="@color/colorBlanco"
                     android:layout_margin="5dp"

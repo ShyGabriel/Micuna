@@ -1,12 +1,14 @@
 package com.example.micuna.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,13 +18,25 @@ import com.example.micuna.activities.cliente.ContenidoCliente;
 import com.example.micuna.activities.cliente.RegistroCliente;
 import com.example.micuna.activities.conductor.ContenidoConductor;
 import com.example.micuna.activities.conductor.RegistroConductor;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 import dmax.dialog.SpotsDialog;
 
@@ -31,14 +45,39 @@ public class LoginActivity extends AppCompatActivity {
     Button mButtonGoToRegister;
     TextInputEditText mTextInputEmail;
     TextInputEditText mTextInputPassword;
+    FirebaseAuth.AuthStateListener authStateListener;
     Button mButtonLogin;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     AlertDialog mDialog;
+    CallbackManager callbackManager;
+    LoginButton loginButton;
+    AccessTokenTracker accessTokenTracker;
+    static final String TAG = "FacebookAuthentication";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton = findViewById(R.id.facebook_button);
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                goMainScreen();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
 
         mTextInputEmail = findViewById(R.id.textInputEmail);
         mTextInputPassword = findViewById(R.id.textInputPassword);
@@ -47,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin = findViewById(R.id.btnLogin);
 
         mAuth = FirebaseAuth.getInstance();
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
 
@@ -66,6 +106,19 @@ public class LoginActivity extends AppCompatActivity {
                 goToRegister();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
+    }
+
+    private void goMainScreen(){
+            Intent intent = new Intent(LoginActivity.this, ContenidoCliente.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
     }
 
     private void login() {

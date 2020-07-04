@@ -190,44 +190,17 @@
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="35dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/bgcolormain"
                 android:text="REGISTRARME"
                 android:textColor="@color/colorBlanco"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnRegisterFacebook"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/rounded_button"
-                android:backgroundTint="@color/colorFacebook"
-                android:text="Entrar con Facebook"
-                android:textColor="@color/colorBlanco"
-                android:textSize="15dp"
-                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnRegisterGmail"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="50dp"
-                android:background="@drawable/rounded_button"
-                android:backgroundTint="@color/colorGmail"
-                android:text="Entrar con Gmail"
-                android:textColor="@color/colorBlanco"
-                android:textSize="15dp"
-                android:textStyle="bold" />
 
         </LinearLayout>
 
