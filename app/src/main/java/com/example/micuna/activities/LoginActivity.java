@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.micuna.R;
+import com.example.micuna.activities.cliente.ContenidoCliente;
 import com.example.micuna.activities.cliente.RegistroCliente;
+import com.example.micuna.activities.conductor.ContenidoConductor;
 import com.example.micuna.activities.conductor.RegistroConductor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -79,8 +81,17 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "El login se realizó exitosamente", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, Contenido.class);
-                            startActivity(intent);
+                            String user = mPref.getString("user", "");
+                            if (user.equals("client")) {
+                                Intent intent = new Intent(LoginActivity.this, ContenidoCliente.class);
+
+                                startActivity(intent);
+                            }
+                            else {
+                                Intent intent = new Intent(LoginActivity.this, ContenidoConductor.class);
+
+                                startActivity(intent);
+                            }
                            /* String user = mPref.getString("user", "");
                             if (user.equals("client")) {
                                 Intent intent = new Intent(LoginActivity.this, MapClientActivity.class);

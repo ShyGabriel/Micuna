@@ -1,4 +1,4 @@
-package com.example.micuna.activities;
+package com.example.micuna.activities.cliente;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,7 @@ import com.example.micuna.fragments.ProfileFragment;
 import com.example.micuna.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Contenido extends AppCompatActivity {
+public class ContenidoCliente extends AppCompatActivity {
 
     BottomNavigationView mBottonNavigation;
 
@@ -23,7 +23,7 @@ public class Contenido extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contenido);
+        setContentView(R.layout.activity_contenido_cliente);
 
         //FRAGMENT PANTALLA DE INICIO
         showSelectedFragment(new HomeFragment());

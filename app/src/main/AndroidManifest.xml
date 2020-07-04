@@ -11,9 +11,10 @@
         android:roundIcon="@drawable/logomicuna"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity"></activity>
+        <activity android:name=".activities.conductor.ContenidoConductor"></activity>
+        <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.conductor.RegistroConductor" />
-        <activity android:name=".activities.Contenido" />
+        <activity android:name=".activities.cliente.ContenidoCliente" />
         <activity android:name=".activities.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
