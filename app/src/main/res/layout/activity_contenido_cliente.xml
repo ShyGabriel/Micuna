@@ -27,6 +27,14 @@
         app:menu="@menu/main_menu"
         android:padding="5dp"
 />
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:onClick="logout"
+        android:text="Cerrar Sesion"
+        />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -38,6 +38,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity {
@@ -62,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
 
         loginButton = findViewById(R.id.facebook_button);
+        loginButton.setReadPermissions(Arrays.asList("email"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

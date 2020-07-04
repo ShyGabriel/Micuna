@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.micuna.R;
 import com.example.micuna.activities.LoginActivity;
@@ -17,6 +18,7 @@ import com.example.micuna.fragments.ProfileFragment;
 import com.example.micuna.fragments.SearchFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ContenidoCliente extends AppCompatActivity {
@@ -67,6 +69,11 @@ public class ContenidoCliente extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public void logout(View view){
+        LoginManager.getInstance().logOut();
+        goLoginScreen();
     }
              /* ♦ METODO QUE PERMTE ELEGIR EL FRAGMENT ♦*/
 
