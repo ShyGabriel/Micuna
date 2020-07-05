@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.micuna.R;
@@ -48,40 +49,20 @@ public class LoginActivity extends AppCompatActivity {
     Button mButtonGoToRegister;
     TextInputEditText mTextInputEmail;
     TextInputEditText mTextInputPassword;
-    FirebaseAuth.AuthStateListener authStateListener;
-    Button mButtonLogin;
-    FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private Button mButtonLogin;
+    FirebaseAuth firebaseAuth;
     DatabaseReference mDatabase;
     AlertDialog mDialog;
-    CallbackManager callbackManager;
-    LoginButton loginButton;
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
     AccessTokenTracker accessTokenTracker;
+    private ProgressBar progressBar;
     static final String TAG = "FacebookAuthentication";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        callbackManager = CallbackManager.Factory.create();
-
-        loginButton = findViewById(R.id.facebook_button);
-        loginButton.setReadPermissions(Arrays.asList("email"));
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                goMainScreen();
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
 
         mTextInputEmail = findViewById(R.id.textInputEmail);
         mTextInputPassword = findViewById(R.id.textInputPassword);
@@ -89,12 +70,44 @@ public class LoginActivity extends AppCompatActivity {
         mButtonGoToRegister = findViewById(R.id.btnGoToRegister);
         mButtonLogin = findViewById(R.id.btnLogin);
 
-        mAuth = FirebaseAuth.getInstance();
+        progressBar = findViewById(R.id.progress_bar);
+
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton = findViewById(R.id.facebook_button);
+
+        loginButton.setReadPermissions(Arrays.asList("email"));
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(), R.string.cancel_login, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(), R.string.fire_base_error, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
 
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    goMainScreen();
+                }
+            }
+        };
 
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,19 +123,35 @@ public class LoginActivity extends AppCompatActivity {
                 goToRegister();
             }
         });
+
+    }
+    private void handleFacebookAccessToken(AccessToken accessToken) {
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setVisibility(View.GONE);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), R.string.fire_base_error, Toast.LENGTH_LONG).show();
+                }
+                progressBar.setVisibility(View.GONE);
+                loginButton.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void goMainScreen(){
-            Intent intent = new Intent(LoginActivity.this, ContenidoCliente.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-
+    private void goMainScreen() {
+        Intent intent = new Intent(this, ContenidoCliente.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void login() {
@@ -133,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
         if (!email.isEmpty() && !password.isEmpty()) {
             if (password.length() >= 6) {
                 mDialog.show();
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -186,5 +215,17 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
     }
 }

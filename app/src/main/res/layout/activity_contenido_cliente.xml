@@ -35,6 +35,15 @@
         android:onClick="logout"
         android:text="Cerrar Sesion"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/txtusuario"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/txtemail"
+        android:layout_height="match_parent"/>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
