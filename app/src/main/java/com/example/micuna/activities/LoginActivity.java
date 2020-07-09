@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     TextInputEditText mTextInputPassword;
     FirebaseAuth.AuthStateListener authStateListener;
     Button mButtonLogin;
+    Button mButtonBack;
     FirebaseAuth firebaseAuth;
     DatabaseReference mDatabase;
     AlertDialog mDialog;
@@ -103,6 +105,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         mButtonGoToRegister = findViewById(R.id.btnGoToRegister);
         mButtonLogin = findViewById(R.id.btnLogin);
+        mButtonBack = findViewById(R.id.btnBack);
 
         progressBar = findViewById(R.id.progress_bar);
 
@@ -157,6 +160,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+        mButtonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToBack();
+            }
+        });
     }
  /*   private void handleFacebookAccessToken(AccessToken accessToken) {
         progressBar.setVisibility(View.VISIBLE);
@@ -281,6 +290,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             startActivity(intent);
         }
 
+    }
+
+    private void goToBack(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override

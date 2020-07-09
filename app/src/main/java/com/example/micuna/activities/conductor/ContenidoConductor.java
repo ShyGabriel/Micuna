@@ -105,13 +105,6 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
 
         firebaseAuth.addAuthStateListener(firebaseAuthListener);
     }
-
-    private void showSelectedFragment(Fragment fragment){
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.containerConductor,fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-    }
     private void setUserData(FirebaseUser user){
         nameTextView.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());
@@ -123,6 +116,15 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+    private void showSelectedFragment(Fragment fragment){
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.containerConductor,fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+    }
+
+
 
     public void logOutConductor(View view) {
         firebaseAuth.signOut();
