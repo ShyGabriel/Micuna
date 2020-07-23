@@ -9,51 +9,84 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+
         >
-
-        <ImageView
-            android:id="@+id/photoImageView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="8dp"
-            android:layout_gravity="center"
-            android:background="@color/colorAccent" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_height="250dp"
+            android:background="@drawable/grad"
+            android:orientation="vertical">
 
-        <TextView
-            android:drawableStart="@drawable/ic_nombre"
-            android:drawablePadding="16dp"
-            android:id="@+id/nameTextView"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:layout_margin="10dp"
-            android:textSize="20dp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/photoImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_margin="75dp"
+                android:src="@drawable/ic_nombre"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorAccent"/>
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:fontFamily="monospace"
+            android:background="@color/colorAccent"
+            android:text="Informe de Cuenta"
+            android:textSize="22dp"
+            android:textStyle="bold">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <TextView
+                    android:drawableStart="@drawable/ic_nombre"
+                    android:drawablePadding="16dp"
+                    android:id="@+id/nameTextView"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_margin="10dp"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <TextView
                 android:id="@+id/emailTextView"
                 android:drawablePadding="16dp"
                 android:drawableStart="@drawable/ic_email"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/app_name"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -61,23 +94,25 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <TextView
                 android:id="@+id/idTextView"
                 android:drawablePadding="16dp"
                 android:drawableStart="@drawable/ic_id"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/app_name"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 />
 
         </LinearLayout>
 
-
+        </LinearLayout>
 
     </LinearLayout>
 

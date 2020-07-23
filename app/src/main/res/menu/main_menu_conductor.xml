@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_ordenes"
+        android:id="@+id/menu_ordenes_conductor"
         android:title="Ordenes"
         android:icon="@drawable/ic_order" />
 
     <item
-        android:id="@+id/menu_search"
+        android:id="@+id/menu_search_conductor"
         android:title="Buscar"
         android:icon="@drawable/ic_search" />
 
     <item
-        android:id="@+id/menu_profile"
+        android:id="@+id/menu_profile_conductor"
         android:title="Perfil"
         android:icon="@drawable/ic_profile" />
 

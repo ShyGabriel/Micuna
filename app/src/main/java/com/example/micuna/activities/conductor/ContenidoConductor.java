@@ -17,7 +17,9 @@ import com.bumptech.glide.Glide;
 import com.example.micuna.R;
 import com.example.micuna.activities.LoginActivity;
 import com.example.micuna.fragments.OrdenesFragment;
+import com.example.micuna.fragments.ProfileConductorFragment;
 import com.example.micuna.fragments.ProfileFragment;
+import com.example.micuna.fragments.SearchConductorFragment;
 import com.example.micuna.fragments.SearchFragment;
 
 import com.google.android.gms.auth.api.Auth;
@@ -81,16 +83,16 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                if (menuItem.getItemId() == R.id.menu_ordenes){
+                if (menuItem.getItemId() == R.id.menu_ordenes_conductor){
                     showSelectedFragment(new OrdenesFragment());
                 }
 
-                if (menuItem.getItemId() == R.id.menu_search){
-                    showSelectedFragment(new SearchFragment());
+                if (menuItem.getItemId() == R.id.menu_search_conductor){
+                    showSelectedFragment(new SearchConductorFragment());
                 }
 
-                if (menuItem.getItemId() == R.id.menu_profile){
-                    showSelectedFragment(new ProfileFragment());
+                if (menuItem.getItemId() == R.id.menu_profile_conductor){
+                    showSelectedFragment(new ProfileConductorFragment());
                 }
 
                 return true;
@@ -114,7 +116,7 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
 
     private void goLoginScreen() {
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

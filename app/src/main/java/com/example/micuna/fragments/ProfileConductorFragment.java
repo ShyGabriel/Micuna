@@ -1,44 +1,24 @@
 package com.example.micuna.fragments;
 
-
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.micuna.R;
-import com.example.micuna.activities.LoginActivity;
-import com.example.micuna.activities.cliente.ContenidoCliente;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ProfileFragment extends Fragment {
+public class ProfileConductorFragment extends Fragment {
     BottomNavigationView mBottonNavigation;
     CircleImageView photoImageView;
     //ImageView photoImageView;
@@ -46,17 +26,14 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth.AuthStateListener firebaseAuthListener;
     FirebaseAuth firebaseAuth;
     GoogleApiClient googleApiClient;
-
-    public ProfileFragment() {
+    public ProfileConductorFragment() {
 
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_conductor, container, false);
 
         photoImageView = view.findViewById(R.id.photoImageView);
         nameTextView = view.findViewById(R.id.nameTextView);
@@ -91,6 +68,4 @@ public class ProfileFragment extends Fragment {
         idTextView.setText(user.getUid());
         Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
-
-
 }
