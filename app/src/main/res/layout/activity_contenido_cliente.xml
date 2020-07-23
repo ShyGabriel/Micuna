@@ -36,6 +36,7 @@
             android:id="@+id/photoImageView"
             android:layout_width="56dp"
             android:layout_height="56dp"
+            android:visibility="invisible"
             android:layout_margin="8dp"
             android:layout_gravity="center"
             android:background="@color/colorAccent" />
@@ -45,6 +46,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:text="@string/app_name"
             android:textSize="24sp" />
 
@@ -52,6 +54,7 @@
             android:id="@+id/emailTextView"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
+            android:visibility="invisible"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textSize="16sp" />
@@ -60,6 +63,7 @@
             android:id="@+id/idTextView"
             android:layout_width="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:visibility="invisible"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textSize="14sp" />

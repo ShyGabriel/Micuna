@@ -163,8 +163,8 @@
             android:background="@drawable/bgcolorsecond"
             android:layout_marginTop="20dp"
             android:textColor="@color/colorNegro"
-            android:layout_marginRight="100dp"
-            android:layout_marginLeft="100dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginBottom="50dp" />
 
     </LinearLayout>

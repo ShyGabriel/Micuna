@@ -75,7 +75,7 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
 
         showSelectedFragment(new OrdenesFragment());
 
-        mBottonNavigation = (BottomNavigationView) findViewById(R.id.botonNavigation);
+        mBottonNavigation = findViewById(R.id.botonNavigation);
 
         mBottonNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -102,15 +102,16 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
     @Override
     protected void onStart() {
         super.onStart();
-
         firebaseAuth.addAuthStateListener(firebaseAuthListener);
     }
+
     private void setUserData(FirebaseUser user){
         nameTextView.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());
         idTextView.setText(user.getUid());
         Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
+
     private void goLoginScreen() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
