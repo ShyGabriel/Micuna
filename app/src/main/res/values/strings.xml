@@ -7,4 +7,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fire_base_error">Error al logearse</string>
     <string name="cancel_login">Logeo cancelado</string>
+
+    <string name="search_your_recipes">busca tus platos…</string>
+    <string name="meal_categories">Categorías de comida</string>
+
+
 </resources>

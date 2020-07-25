@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.micuna.R;
 import com.example.micuna.activities.LoginActivity;
+import com.example.micuna.activities.MainActivity;
 import com.example.micuna.activities.cliente.ContenidoCliente;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;

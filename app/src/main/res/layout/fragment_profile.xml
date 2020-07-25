@@ -114,6 +114,27 @@
 
         </LinearLayout>
 
+
+
     </LinearLayout>
+
+
+
+
+    <Button
+        android:layout_marginTop="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salir"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:onClick="logOut"
+        />
+    <Button
+        android:layout_marginTop="570dp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="revoke"
+        android:text="Revocar" />
 
 </FrameLayout>
