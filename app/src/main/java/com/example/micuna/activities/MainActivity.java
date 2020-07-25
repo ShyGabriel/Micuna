@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.micuna.R;
+import com.example.micuna.activities.cliente.ContenidoCliente;
+import com.example.micuna.activities.conductor.ContenidoConductor;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-Button btnCliente;
-Button btnConductor;
+Button bImCliente;
+Button bImConductor;
 SharedPreferences mPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,28 +23,47 @@ SharedPreferences mPref;
         setContentView(R.layout.activity_main);
         mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
         final SharedPreferences.Editor editor = mPref.edit();
-        btnCliente = findViewById(R.id.btnLoginCliente);
-        btnConductor = findViewById(R.id.btnLoginConductor);
+        bImCliente = findViewById(R.id.btnImCliente);
+        bImConductor = findViewById(R.id.btnImConductor);
 
-        btnCliente.setOnClickListener(new View.OnClickListener() {
+        bImCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editor.putString("user","client");
                 editor.apply();
-                gotoLogin();
+                gotoSelectAuth();
             }
         });
-        btnConductor.setOnClickListener(new View.OnClickListener() {
+        bImConductor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editor.putString("user","driver");
                 editor.apply();
-                gotoLogin();
+                gotoSelectAuth();
             }
         });
     }
-    private void gotoLogin(){
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            String user = mPref.getString("user", "");
+            if (user.equals("client")) {
+                Intent intent = new Intent(MainActivity.this, ContenidoCliente.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(MainActivity.this, ContenidoConductor.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        }
+    }
+
+    private void gotoSelectAuth(){
+        Intent intent = new Intent(MainActivity.this, SelectOptionAuth.class);
         startActivity(intent);
     }
 }

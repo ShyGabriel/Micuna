@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.micuna.R;
+import com.example.micuna.include.MyToolbar;
+import com.example.micuna.modelo.Cliente;
 import com.example.micuna.modelo.User;
+import com.example.micuna.providers.AuthProvider;
+import com.example.micuna.providers.ClientProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -24,40 +29,53 @@ import dmax.dialog.SpotsDialog;
 
 public class RegistroCliente extends AppCompatActivity {
     SharedPreferences mPref;
-    FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
+    AuthProvider mAuthProvider;
+    ClientProvider mClientProvider;
     AlertDialog mDialog;
+/*
+    FirebaseAuth mAuth;
+    DatabaseReference mDatabase;*/
+
     // VIEWS
     Button mButtonRegister;
     TextInputEditText mTextInputEmail;
     TextInputEditText mTextInputName;
     TextInputEditText mTextInputPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_cliente);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        MyToolbar.show(this,"Registro Cliente",true);
 
+        /* Instanciamos */
+        mAuthProvider = new AuthProvider();
+        mClientProvider = new ClientProvider();
+
+
+        //Diferenciamos de user
         mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
-        mDialog = new SpotsDialog.Builder().setContext(RegistroCliente.this).setMessage("Registrandose").build();
+        mDialog = new SpotsDialog.Builder().setContext(RegistroCliente.this).setMessage("Espere un momento").build();
+        String selectedUser = mPref.getString("user","");
+        Toast.makeText(this, "El valor que seleccionó fue " + selectedUser, Toast.LENGTH_SHORT).show();
+
         mButtonRegister = findViewById(R.id.btnRegister);
         mTextInputEmail = findViewById(R.id.textInputEmail);
         mTextInputName = findViewById(R.id.textInputName);
         mTextInputPassword = findViewById(R.id.textInputPassword);
 
-        String selectedUser = mPref.getString("user","");
-        Toast.makeText(this, "El valor que seleccionó fue " + selectedUser, Toast.LENGTH_SHORT).show();
+
+
 
         mButtonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerUser();
+                clickRegister();
             }
         });
     }
-    void registerUser() {
+    void clickRegister() {
         final String name = mTextInputName.getText().toString();
         final String email = mTextInputEmail.getText().toString();
         final String password = mTextInputPassword.getText().toString();
@@ -65,21 +83,7 @@ public class RegistroCliente extends AppCompatActivity {
         if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
             if (password.length() >= 6) {
                 mDialog.show();
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        mDialog.hide();
-                        if (task.isSuccessful()) {
-                            String id = mAuth.getCurrentUser().getUid();
-                            saveUser(id, name, email);
-                            Toast.makeText(RegistroCliente.this, "RegistroCliente Exitoso", Toast.LENGTH_SHORT).show();
-
-                        }
-                        else {
-                            Toast.makeText(RegistroCliente.this, "No se pudo registrar", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                register(name,email,password);
             }
             else {
                 Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
@@ -89,37 +93,43 @@ public class RegistroCliente extends AppCompatActivity {
             Toast.makeText(this, "Ingrese todos los campos", Toast.LENGTH_SHORT).show();
         }
     }
-    void saveUser(String id, String name, String email) {
-        String selectedUser = mPref.getString("user", "");
-        User user = new User();
-        user.setEmail(email);
-        user.setName(name);
 
-        if (selectedUser.equals("driver")) {
-            mDatabase.child("Users").child("Drivers").child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(RegistroCliente.this, "RegistroCliente exitoso", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(RegistroCliente.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
-                    }
+    void register(final String name,final String email,final String password) {
+
+        mAuthProvider.register(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                mDialog.hide();
+                if (task.isSuccessful()) {
+                    String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    Cliente cliente = new Cliente(id, name, email, password);
+                    create(cliente);
+                } else {
+                    Toast.makeText(RegistroCliente.this, "No se pudo registrar el usuario", Toast.LENGTH_SHORT).show();
                 }
-            });
-        }
-        else if (selectedUser.equals("client")){
-            mDatabase.child("Users").child("Clients").child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(RegistroCliente.this, "RegistroCliente exitoso", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(RegistroCliente.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
-                    }
+            }
+
+
+        });
+
+    }
+
+
+    void create(Cliente cliente) {
+        mClientProvider.create(cliente).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(RegistroCliente.this, "El registro se realizo exitosamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegistroCliente.this, ContenidoCliente.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
-            });
-        }
+                else {
+
+                    Toast.makeText(RegistroCliente.this, "No se pudo crear el cliente", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

@@ -4,8 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
     <application
         android:name=".modelo.MicunaApp"
         android:allowBackup="true"
@@ -14,10 +12,18 @@
         android:roundIcon="@drawable/logomicuna"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <activity android:name=".activities.conductor.ContenidoConductor"></activity>
+        <activity android:name=".activities.SelectOptionAuth"
+            android:parentActivityName=".activities.MainActivity"></activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".activities.conductor.ContenidoConductor" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.conductor.RegistroConductor" />
+        <activity
+            android:name=".activities.conductor.RegistroConductor"
+            android:parentActivityName=".activities.SelectOptionAuth" />
         <activity android:name=".activities.cliente.ContenidoCliente" />
         <activity android:name=".activities.Splash">
             <intent-filter>
@@ -26,9 +32,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.cliente.RegistroCliente" />
-        <activity android:name=".activities.LoginActivity" />
-
+        <activity
+            android:name=".activities.cliente.RegistroCliente"
+            android:parentActivityName=".activities.SelectOptionAuth" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:parentActivityName=".activities.SelectOptionAuth" />
     </application>
 
 </manifest>

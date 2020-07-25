@@ -9,6 +9,8 @@
     android:background="@drawable/splash"
     android:orientation="vertical">
 
+    <include layout="@layout/action_bar_toolbar" ></include>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +27,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:background="@drawable/logomicuna"
             android:layout_marginBottom="50dp">
         </ImageView>
@@ -120,20 +122,6 @@
             android:layout_marginLeft="30dp"
             />
 
-        <Button
-            android:id="@+id/btnGoToRegister"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:text="Registrarme"
-            android:textSize="14dp"
-            android:background="@drawable/bgcolorsecond"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/colorNegro"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="50dp"
-            />
-
         <com.google.android.gms.common.SignInButton
             android:id="@+id/signInButton"
             android:layout_width="match_parent"
@@ -143,7 +131,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             app:buttonSize="wide"
-            android:background="@drawable/rounded_button"
             android:textSize="15dp"
             android:textStyle="bold"/>
 

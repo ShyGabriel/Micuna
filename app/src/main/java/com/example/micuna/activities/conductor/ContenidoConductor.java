@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.micuna.R;
 import com.example.micuna.activities.LoginActivity;
+import com.example.micuna.activities.MainActivity;
 import com.example.micuna.fragments.OrdenesFragment;
 import com.example.micuna.fragments.ProfileConductorFragment;
 import com.example.micuna.fragments.ProfileFragment;
@@ -32,9 +34,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.security.AuthProvider;
+
 
 public class ContenidoConductor extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-
+    AuthProvider mAuthProvider;
     BottomNavigationView mBottonNavigation;
     ImageView photoImageView;
     TextView nameTextView, emailTextView, idTextView;
@@ -70,7 +74,7 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
                 if (user != null){
                     setUserData(user);
                 }else {
-                    goLoginScreen();
+                    goMainScreen();
                 }
             }
         };
@@ -114,8 +118,8 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
         Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
 
-    private void goLoginScreen() {
-        Intent intent = new Intent(this, LoginActivity.class);
+    private void goMainScreen() {
+        Intent intent = new Intent(this, MainActivity.class);
         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -135,7 +139,7 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onResult(@NonNull Status status) {
                 if (status.isSuccess()) {
-                    goLoginScreen();
+                    goMainScreen();
                 } else {
                     Toast.makeText(getApplicationContext(), "No se pudo cerrar sesion", Toast.LENGTH_SHORT).show();
                 }
@@ -149,7 +153,7 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onResult(@NonNull Status status) {
                 if (status.isSuccess()) {
-                    goLoginScreen();
+                    goMainScreen();
                 } else {
                     Toast.makeText(getApplicationContext(), "No se Revoco el acceso", Toast.LENGTH_SHORT).show();
                 }
@@ -170,4 +174,5 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
+
 }

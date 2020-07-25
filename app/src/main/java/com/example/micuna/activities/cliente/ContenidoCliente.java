@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.micuna.R;
 import com.example.micuna.activities.LoginActivity;
+import com.example.micuna.activities.MainActivity;
 import com.example.micuna.fragments.HomeFragment;
 import com.example.micuna.fragments.OrderFragment;
 import com.example.micuna.fragments.ProfileFragment;
@@ -73,7 +74,7 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
                 if (user != null){
                     setUserData(user);
                 }else {
-                    goLoginScreen();
+                    goMainScreen();
                 }
             }
         };
@@ -121,8 +122,8 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
         Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
 
-    private void goLoginScreen() {
-        Intent intent = new Intent(this, LoginActivity.class);
+    private void goMainScreen() {
+        Intent intent = new Intent(this, MainActivity.class);
         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -145,7 +146,7 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onResult(@NonNull Status status) {
                 if (status.isSuccess()) {
-                    goLoginScreen();
+                    goMainScreen();
                 } else {
                     Toast.makeText(getApplicationContext(), "No se pudo cerrar sesion", Toast.LENGTH_SHORT).show();
                 }
@@ -159,7 +160,7 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onResult(@NonNull Status status) {
                 if (status.isSuccess()) {
-                    goLoginScreen();
+                    goMainScreen();
                 } else {
                     Toast.makeText(getApplicationContext(), "No se Revoco el acceso", Toast.LENGTH_SHORT).show();
                 }

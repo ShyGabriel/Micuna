@@ -21,6 +21,7 @@ import com.example.micuna.activities.cliente.ContenidoCliente;
 import com.example.micuna.activities.cliente.RegistroCliente;
 import com.example.micuna.activities.conductor.ContenidoConductor;
 import com.example.micuna.activities.conductor.RegistroConductor;
+import com.example.micuna.include.MyToolbar;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -56,7 +57,7 @@ import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     SharedPreferences mPref;
-    Button mButtonGoToRegister;
+    //Button mButtonGoToRegister;
     TextInputEditText mTextInputEmail;
     TextInputEditText mTextInputPassword;
     FirebaseAuth.AuthStateListener authStateListener;
@@ -80,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        MyToolbar.show(this,"Login",true);
         //Google
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -103,10 +105,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mTextInputEmail = findViewById(R.id.textInputEmail);
         mTextInputPassword = findViewById(R.id.textInputPassword);
 
-        mButtonGoToRegister = findViewById(R.id.btnGoToRegister);
         mButtonLogin = findViewById(R.id.btnLogin);
         mButtonBack = findViewById(R.id.btnBack);
-
         progressBar = findViewById(R.id.progress_bar);
 
      //   callbackManager = CallbackManager.Factory.create();
@@ -150,13 +150,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onClick(View v) {
                 login();
-            }
-        });
-
-        mButtonGoToRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToRegister();
             }
         });
 
@@ -245,12 +238,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             String user = mPref.getString("user", "");
                             if (user.equals("client")) {
                                 Intent intent = new Intent(LoginActivity.this, ContenidoCliente.class);
-
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
                             else {
                                 Intent intent = new Intent(LoginActivity.this, ContenidoConductor.class);
-
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
                            /* String user = mPref.getString("user", "");
@@ -278,19 +271,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-    private void goToRegister() {
 
-        String typeUser = mPref.getString("user", "");
-        if (typeUser.equals("client")) {
-            Intent intent = new Intent(LoginActivity.this, RegistroCliente.class);
-            startActivity(intent);
-        }
-        else if(typeUser.equals("driver")){
-            Intent intent = new Intent(LoginActivity.this, RegistroConductor.class);
-            startActivity(intent);
-        }
-
-    }
 
     private void goToBack(){
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

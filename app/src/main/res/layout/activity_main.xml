@@ -21,7 +21,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="80dp"
             android:background="@drawable/logomicuna">
         </ImageView>
 
@@ -33,29 +33,29 @@
             android:layout_margin="20dp">
 
             <Button
-                android:id="@+id/btnLoginCliente"
+                android:id="@+id/btnImCliente"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="Cliente"
                 android:gravity="center"
                 android:background="@drawable/bgcolormain"
                 android:textColor="@color/colorBlanco"
-                android:textSize="15dp"
+                android:textSize="14dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="100dp"
                 />
 
             <Button
-                android:id="@+id/btnLoginConductor"
+                android:id="@+id/btnImConductor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="Conductor"
                 android:gravity="center"
-                android:textSize="15dp"
+                android:textSize="14dp"
                 android:background="@drawable/bgcolorsecond"
                 android:textColor="@color/colorBlanco"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 />
 
         </LinearLayout>
