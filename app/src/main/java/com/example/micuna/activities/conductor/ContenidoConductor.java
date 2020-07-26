@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.example.micuna.fragments.ProfileFragment;
 import com.example.micuna.fragments.SearchConductorFragment;
 import com.example.micuna.fragments.SearchFragment;
 
+import com.example.micuna.include.MyToolbar;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -50,6 +52,8 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenido_conductor);
+
+        MyToolbar.show(this,"Conductor",true);
 
         photoImageView = findViewById(R.id.photoImageView);
         nameTextView = findViewById(R.id.nameTextView);
@@ -131,36 +135,6 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
                 .commit();
     }
 
-
-
-    public void logOutConductor(View view) {
-        firebaseAuth.signOut();
-        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-                if (status.isSuccess()) {
-                    goMainScreen();
-                } else {
-                    Toast.makeText(getApplicationContext(), "No se pudo cerrar sesion", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    public void revokeConductor(View view) {
-        firebaseAuth.signOut();
-        Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-                if (status.isSuccess()) {
-                    goMainScreen();
-                } else {
-                    Toast.makeText(getApplicationContext(), "No se Revoco el acceso", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -173,6 +147,30 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
         if (firebaseAuthListener != null){
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.driver_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_logout_driver:
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+
+        }
+
+        return true;
     }
 
 }

@@ -153,12 +153,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        mButtonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToBack();
-            }
-        });
+
     }
  /*   private void handleFacebookAccessToken(AccessToken accessToken) {
         progressBar.setVisibility(View.VISIBLE);
@@ -269,13 +264,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         } else {
             Toast.makeText(this, "La contraseña y el email son obligatorios", Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-
-    private void goToBack(){
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
     }
 
     @Override

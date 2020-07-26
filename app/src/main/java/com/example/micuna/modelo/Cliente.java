@@ -1,6 +1,8 @@
 package com.example.micuna.modelo;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente{
     String id;
     String name;
     String email;

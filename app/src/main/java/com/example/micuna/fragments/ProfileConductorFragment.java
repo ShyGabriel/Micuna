@@ -35,28 +35,12 @@ public class ProfileConductorFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile_conductor, container, false);
 
-        photoImageView = view.findViewById(R.id.photoImageView);
-        nameTextView = view.findViewById(R.id.nameTextView);
-        emailTextView = view.findViewById(R.id.emailTextView);
-        idTextView = view.findViewById(R.id.idTextView);
 
-
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null){
-                    setUserData(user);
-                }
-            }
-        };
 
         return view;
     }
 
-
+/*
     @Override
     public void onStart() {
         super.onStart();
@@ -67,5 +51,5 @@ public class ProfileConductorFragment extends Fragment {
         emailTextView.setText(user.getEmail());
         idTextView.setText(user.getUid());
         Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
-    }
+    }*/
 }

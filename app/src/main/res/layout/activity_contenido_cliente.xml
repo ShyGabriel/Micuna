@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".activities.cliente.ContenidoCliente">
 
+    <include layout="@layout/action_bar_toolbar" ></include>
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -68,26 +70,6 @@
             android:text="@string/app_name"
             android:textSize="14sp" />
     </LinearLayout>
-
-
-
-
-
-    <Button
-        android:layout_marginTop="500dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Salir"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:onClick="logOut"
-        />
-    <Button
-        android:layout_marginTop="570dp"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="revoke"
-        android:text="Revocar" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
