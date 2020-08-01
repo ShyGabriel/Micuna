@@ -2,6 +2,7 @@ package com.example.micuna.activities.cliente;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ import com.example.micuna.fragments.HomeFragment;
 import com.example.micuna.fragments.OrderFragment;
 import com.example.micuna.fragments.ProfileFragment;
 import com.example.micuna.fragments.SearchFragment;
+import com.example.micuna.include.ContenidoToolbar;
 import com.example.micuna.include.MyToolbar;
 import com.example.micuna.providers.AuthProvider;
 import com.facebook.AccessToken;
@@ -56,12 +59,14 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenido_cliente);
 
-        MyToolbar.show(this,"Cliente",true);
+        ContenidoToolbar.show(this);
+        //MyToolbar.show(this,"Cliente",true);
 
         photoImageView = findViewById(R.id.photoImageView);
         nameTextView = findViewById(R.id.nameTextView);
         emailTextView = findViewById(R.id.emailTextView);
         idTextView = findViewById(R.id.idTextView);
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -164,7 +169,7 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.client_menu, menu);
+        inflater.inflate(R.menu.client_menu,menu);
 
         return true;
     }
@@ -183,4 +188,5 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
 
         return true;
     }
+
 }

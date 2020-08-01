@@ -106,7 +106,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mTextInputPassword = findViewById(R.id.textInputPassword);
 
         mButtonLogin = findViewById(R.id.btnLogin);
-        mButtonBack = findViewById(R.id.btnBack);
         progressBar = findViewById(R.id.progress_bar);
 
      //   callbackManager = CallbackManager.Factory.create();

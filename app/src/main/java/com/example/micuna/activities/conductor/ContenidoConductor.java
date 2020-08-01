@@ -2,6 +2,7 @@ package com.example.micuna.activities.conductor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -25,6 +26,7 @@ import com.example.micuna.fragments.ProfileFragment;
 import com.example.micuna.fragments.SearchConductorFragment;
 import com.example.micuna.fragments.SearchFragment;
 
+import com.example.micuna.include.ContenidoToolbar;
 import com.example.micuna.include.MyToolbar;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -53,7 +55,8 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenido_conductor);
 
-        MyToolbar.show(this,"Conductor",true);
+        ContenidoToolbar.show(this);
+        //MyToolbar.show(this,"Cliente",true);
 
         photoImageView = findViewById(R.id.photoImageView);
         nameTextView = findViewById(R.id.nameTextView);

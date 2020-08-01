@@ -15,17 +15,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:background="@drawable/grad"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/photoImageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_margin="75dp"
+                android:layout_margin="80dp"
                 android:src="@drawable/ic_nombre"
                 app:civ_border_width="2dp"
                 app:civ_border_color="@color/colorAccent"/>
@@ -37,7 +37,7 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:fontFamily="monospace"
-            android:background="@color/colorAccent"
+            android:background="@color/colorBlanco"
             android:text="Informe de Cuenta"
             android:textSize="22dp"
             android:textStyle="bold">
@@ -113,6 +113,8 @@
                 />
 
         </LinearLayout>
+
+
 
         </LinearLayout>
 

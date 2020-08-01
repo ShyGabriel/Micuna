@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.conductor.ContenidoConductor">
 
-    <include layout="@layout/action_bar_toolbar" ></include>
+    <include layout="@layout/toolbar_contenido" ></include>
 
     <FrameLayout
         android:id="@+id/containerConductor"
@@ -22,8 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/colorNegro"
-        app:itemBackground="@color/colorNegro"
+        android:background="@color/colorPrimaryDark"
+        app:itemBackground="@color/colorPrimaryDark"
         app:itemTextColor="@color/colorBlanco"
         app:itemIconTint="@color/colorBlanco"
         app:menu="@menu/main_menu_conductor"
