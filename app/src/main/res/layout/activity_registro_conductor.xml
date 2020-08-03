@@ -201,7 +201,7 @@
                 android:textColor="@color/colorBlanco"
                 android:textSize="14dp"
                 android:layout_marginBottom="30dp"
-                android:textStyle="bold" />
+                 />
 
 
 
