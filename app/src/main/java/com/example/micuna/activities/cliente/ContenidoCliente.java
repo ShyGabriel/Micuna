@@ -2,50 +2,46 @@ package com.example.micuna.activities.cliente;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.micuna.R;
-import com.example.micuna.activities.LoginActivity;
 import com.example.micuna.activities.MainActivity;
-import com.example.micuna.fragments.HomeFragment;
+import com.example.micuna.comidas.antojos;
+import com.example.micuna.comidas.bebidas;
+import com.example.micuna.comidas.donuts;
+import com.example.micuna.comidas.fast_food;
+import com.example.micuna.comidas.favoritos;
+import com.example.micuna.comidas.gaseosa;
+import com.example.micuna.comidas.hamburguesa;
+import com.example.micuna.comidas.peruanito;
+import com.example.micuna.comidas.pizza;
+import com.example.micuna.comidas.pollo_brasa;
+import com.example.micuna.comidas.tacos;
+import com.example.micuna.fragments.HomewFragment;
 import com.example.micuna.fragments.OrderFragment;
 import com.example.micuna.fragments.ProfileFragment;
 import com.example.micuna.fragments.SearchFragment;
 import com.example.micuna.include.ContenidoToolbar;
-import com.example.micuna.include.MyToolbar;
-import com.example.micuna.providers.AuthProvider;
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.login.LoginManager;
+import com.example.micuna.interfaces.iComunicaFragment;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ContenidoCliente extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class ContenidoCliente extends AppCompatActivity implements iComunicaFragment, GoogleApiClient.OnConnectionFailedListener {
 
     BottomNavigationView mBottonNavigation;
     TextView nameTextView, emailTextView, idTextView;
@@ -91,7 +87,7 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
         };
 
         //FRAGMENT PANTALLA DE INICIO
-        showSelectedFragment(new HomeFragment());
+        showSelectedFragment(new HomewFragment());
 
         mBottonNavigation = (BottomNavigationView) findViewById(R.id.botonNavigation);
 
@@ -100,7 +96,7 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 if (menuItem.getItemId() == R.id.menu_home){
-                    showSelectedFragment(new HomeFragment());
+                    showSelectedFragment(new HomewFragment());
                 }
 
                 if (menuItem.getItemId() == R.id.menu_search){
@@ -120,12 +116,7 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
     private void setUserData(FirebaseUser user){
         nameTextView.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());
@@ -188,5 +179,72 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
 
         return true;
     }
+
+    @Override
+    public void pollo() {
+        Intent intent = new Intent(ContenidoCliente.this, pollo_brasa.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void pizza() {
+        Intent intent = new Intent(ContenidoCliente.this, pizza.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void donuts() {
+        Intent intent = new Intent(ContenidoCliente.this, donuts.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void hamburguesa() {
+        Intent intent = new Intent(ContenidoCliente.this, hamburguesa.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void gaseosa() {
+        Intent intent = new Intent(ContenidoCliente.this, gaseosa.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void tacos() {
+        Intent intent = new Intent(ContenidoCliente.this, tacos.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void favoritos() {
+        Intent intent = new Intent(ContenidoCliente.this, favoritos.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void peruanito(){
+        Intent intent = new Intent(ContenidoCliente.this, peruanito.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void fastfood() {
+        Intent intent = new Intent(ContenidoCliente.this, fast_food.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void antojos() {
+        Intent intent = new Intent(ContenidoCliente.this, antojos.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void bebidas() {
+        Intent intent = new Intent(ContenidoCliente.this, bebidas.class);
+        startActivity(intent);
+    }
+
 
 }

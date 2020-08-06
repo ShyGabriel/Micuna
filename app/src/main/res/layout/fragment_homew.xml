@@ -2,14 +2,12 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".fragments.HomeFragment">
-
-
+    tools:context=".fragments.HomewFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -42,6 +40,7 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/pollo"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_marginLeft="15dp"
@@ -94,6 +93,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/pizza"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_marginLeft="15dp"
@@ -146,6 +146,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/donuts"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_marginLeft="15dp"
@@ -199,6 +200,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/hamburguesa"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_marginLeft="15dp"
@@ -251,6 +253,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/gaseosa"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_marginLeft="15dp"
@@ -303,6 +306,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/taco"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_marginLeft="15dp"
@@ -370,6 +374,7 @@
                 android:layout_marginTop="0dp"/>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/favoritos"
                 android:layout_width="match_parent"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
@@ -380,261 +385,265 @@
                 android:focusable="true"
                 app:cardCornerRadius="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@drawable/bg_popular">
-
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_marginRight="20dp"
-                   android:layout_marginLeft="20dp"
-                   android:layout_marginTop="20dp">
-
-                   <LinearLayout
-                       android:layout_width="200dp"
-                       android:layout_height="wrap_content"
-                       android:orientation="vertical">
-
-                       <TextView
-                           android:textSize="35dp"
-                           android:textStyle="bold"
-                           android:textColor="@color/colorNegro"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="Favoritos"/>
-
-                       <TextView
-                           android:textSize="15dp"
-                           android:textStyle="bold"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="Comidas mas solicitadas \npor los ususarios"/>
-
-                   </LinearLayout>
-
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       android:gravity="right">
-
-                       <ImageView
-                           android:src="@drawable/fav"
-                           android:layout_width="70dp"
-                           android:layout_height="70dp"/>
-
-                   </LinearLayout>
-
-               </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="25dp"
-        android:layout_height="150dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@drawable/bg_peruanito">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp">
-
                 <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_popular">
 
-                    <TextView
-                        android:textSize="35dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorNegro"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Peruanito"/>
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp">
 
-                    <TextView
-                        android:textSize="15dp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Comidas y tiendas de \ndiversas regiones del Peru"/>
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:textSize="35dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorNegro"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Favoritos"/>
+
+                            <TextView
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Comidas mas solicitadas \npor los ususarios"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right">
+
+                            <ImageView
+                                android:src="@drawable/fav"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/peruanito"
+                android:layout_width="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_height="150dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="right">
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_peruanito">
 
-                    <ImageView
-                        android:src="@drawable/peruvian"
-                        android:layout_width="65dp"
-                        android:layout_height="70dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp">
+
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:textSize="35dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorNegro"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Peruanito"/>
+
+                            <TextView
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Comidas y tiendas de \ndiversas regiones del Peru"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right">
+
+                            <ImageView
+                                android:src="@drawable/peruvian"
+                                android:layout_width="65dp"
+                                android:layout_height="70dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="25dp"
-        android:layout_height="150dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@drawable/bg_fastfood">
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/fastfood"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp">
-
-                <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:textSize="35dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorNegro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fast Food"/>
-
-                    <TextView
-                        android:textSize="15dp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Comidas y tiendas que \nofrecen comida rapida"/>
-
-                </LinearLayout>
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_height="150dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="right">
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_fastfood">
 
-                    <ImageView
-                        android:src="@drawable/fastfood"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp">
+
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:textSize="35dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorNegro"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Fast Food"/>
+
+                            <TextView
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Comidas y tiendas que \nofrecen comida rapida"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right">
+
+                            <ImageView
+                                android:src="@drawable/fastfood"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="25dp"
-        android:layout_height="150dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@drawable/bg_antojos">
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/antojos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp">
-
-                <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:textSize="35dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorNegro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Antojos"/>
-
-                    <TextView
-                        android:textSize="15dp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Comidas y tiendas que \nofrecen snacks y productos \nempaquetados"/>
-
-                </LinearLayout>
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_height="150dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="right">
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_antojos">
 
-                    <ImageView
-                        android:src="@drawable/donut"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp">
+
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:textSize="35dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorNegro"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Antojos"/>
+
+                            <TextView
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Comidas y tiendas que \nofrecen snacks y productos \nempaquetados"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right">
+
+                            <ImageView
+                                android:src="@drawable/donut"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
+                android:id="@+id/bebidas"
                 android:layout_width="match_parent"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="25dp"
                 android:layout_height="150dp"
                 android:layout_marginBottom="25dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
