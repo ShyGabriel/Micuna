@@ -54,7 +54,11 @@ public class RegistroConductor extends AppCompatActivity {
         mAuthProvider = new AuthProvider();
         mDriverProvider = new DriverProvider();
 
+        // Diferenciamos el user
+        mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
         mDialog = new SpotsDialog.Builder().setContext(RegistroConductor.this).setMessage("Espere un momento").build();
+        String selectedUser = mPref.getString("user","");
+        Toast.makeText(this, "El valor que selecciono fue " + selectedUser, Toast.LENGTH_SHORT).show();
 
         mButtonRegister = findViewById(R.id.btnRegister);
         mTextInputEmail = findViewById(R.id.textInputEmail);
