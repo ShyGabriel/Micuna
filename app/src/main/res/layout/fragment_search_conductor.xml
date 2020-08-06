@@ -6,7 +6,7 @@
     tools:context=".fragments.SearchConductorFragment">
 
     <fragment
-        android:id="@+id/mapsViewConductor"
+        android:id="@+id/mapsView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"/>

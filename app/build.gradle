@@ -59,6 +59,23 @@ dependencies {
 
     //Mapas implementation
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0' // Servicios de Google ♦╝
+    implementation 'com.firebase:geofire-android:2.2.0'  // ubicación mediante Geofire (lat-long)
+    implementation 'com.github.d-max:spots-dialog:1.1@aar' // animación en dialog
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation "com.google.android.libraries.places:places:1.1.0" // barra de busqueda
+    implementation 'com.google.maps.android:android-maps-utils:0.5' //busqueda por region
+
+    //RETROFIT ->Permite realizar peticiones http a google para asi trazar las rutas
+
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //ANIMACIONES CON LOTTIE
+    implementation 'com.airbnb.android:lottie:2.8.0'
+
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'  //notificacion push
 
 }
 apply plugin: 'com.google.gms.google-services'

@@ -25,6 +25,8 @@ public class SearchConductorFragment extends Fragment implements OnMapReadyCallb
     private View view;
     private GoogleMap map;
     private SupportMapFragment mMapFragment;
+
+
     public SearchConductorFragment() {
 
     }
@@ -45,7 +47,7 @@ public class SearchConductorFragment extends Fragment implements OnMapReadyCallb
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mMapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.mapsViewConductor);
+                getChildFragmentManager().findFragmentById(R.id.mapsView);
         mMapFragment.getMapAsync(this);
 
     }

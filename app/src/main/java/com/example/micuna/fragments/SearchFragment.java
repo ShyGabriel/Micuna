@@ -30,6 +30,8 @@ private View view;
 private GoogleMap map;
 private SupportMapFragment mMapFragment;
 
+
+
     public SearchFragment() {
 
     }
@@ -52,7 +54,7 @@ private SupportMapFragment mMapFragment;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
           mMapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.mapsView);
+                  getChildFragmentManager().findFragmentById(R.id.mapsView);
           mMapFragment.getMapAsync(this);
 
     }

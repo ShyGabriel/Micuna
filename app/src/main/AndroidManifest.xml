@@ -13,6 +13,7 @@
         android:roundIcon="@drawable/logomicuna"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".comidas.tacos"></activity>
         <activity android:name=".comidas.gaseosa" />
         <activity android:name=".comidas.hamburguesa" />
@@ -24,9 +25,9 @@
         <activity android:name=".comidas.fast_food" />
         <activity android:name=".comidas.peruanito" />
         <activity android:name=".comidas.favoritos" />
-        <activity
-            android:name=".activities.SelectOptionAuth"
-            android:parentActivityName=".activities.MainActivity" />
+
+        <activity android:name=".activities.SelectOptionAuth"
+            android:parentActivityName=".activities.MainActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -55,6 +56,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
     </application>
 
 </manifest>

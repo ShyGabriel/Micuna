@@ -101,6 +101,7 @@ public class ContenidoCliente extends AppCompatActivity implements iComunicaFrag
 
                 if (menuItem.getItemId() == R.id.menu_search){
                     showSelectedFragment(new SearchFragment());
+
                 }
 
                 if (menuItem.getItemId() == R.id.menu_order){
