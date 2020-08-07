@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.micuna.R;
 import com.example.micuna.interfaces.iComunicaFragment;
 
@@ -82,9 +83,12 @@ public class HomewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
         }
     }
 
@@ -93,6 +97,9 @@ public class HomewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         vista =inflater.inflate(R.layout.fragment_homew, container, false);
+
+        //instanciando lottie
+        final LottieAnimationView animationView = (LottieAnimationView) vista.findViewById(R.id.animationView);
 
         mcardView1 = vista.findViewById(R.id.pollo);
         mcardView2 = vista.findViewById(R.id.pizza);
@@ -107,6 +114,13 @@ public class HomewFragment extends Fragment {
         mcardView9 = vista.findViewById(R.id.fastfood);
         mcardView10 = vista.findViewById(R.id.antojos);
         mcardView11 = vista.findViewById(R.id.bebidas);
+
+        animationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationView.playAnimation();
+            }
+        });
 
         mcardView1.setOnClickListener(new View.OnClickListener() {
             @Override
