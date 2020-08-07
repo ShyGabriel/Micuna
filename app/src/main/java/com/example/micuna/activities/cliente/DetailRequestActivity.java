@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.micuna.R;
+import com.example.micuna.include.ContenidoToolbar;
 import com.example.micuna.include.MyToolbar;
 import com.example.micuna.providers.GoogleApiProvider;
 import com.example.micuna.utils.DecodePoints;
@@ -67,7 +68,7 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
 
         mMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapsView);
         mMapFragment.getMapAsync(this);
-        MyToolbar.show(this, "TUS DATOS", true);
+        ContenidoToolbar.show(this);
 
         mExtraOriginLat = getIntent().getDoubleExtra("origin_lat", 0);
         mExtraOriginLng = getIntent().getDoubleExtra("origin_lng", 0);
