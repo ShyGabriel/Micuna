@@ -82,7 +82,7 @@ public class RequestDriverActivity extends AppCompatActivity {
                     mDriverFound = true;
                     mIdDriverFound = key;
                     mDriverFoundLatLng = new LatLng(location.latitude, location.longitude);
-                    mTextViewLookingFor.setText("CONDUCTOR ENCONTRADO\nESPERANDO RESPUESTA");
+                    mTextViewLookingFor.setText("PERSONAL DELIVERY ENCONTRADO\nESPERANDO RESPUESTA");
                     sendNotification();
                     Log.d("DRIVER", "ID: " + mIdDriverFound);
                 }
@@ -106,8 +106,8 @@ public class RequestDriverActivity extends AppCompatActivity {
                     mRadius = mRadius + 0.1f;
                     // NO ENCONTRO NINGUN CONDUCTOR
                     if (mRadius > 5) {
-                        mTextViewLookingFor.setText("NO SE ENCONTRO UN CONDUCTOR");
-                        Toast.makeText(RequestDriverActivity.this, "NO SE ENCONTRO UN CONDUCTOR", Toast.LENGTH_SHORT).show();
+                        mTextViewLookingFor.setText("NO SE ENCONTRO UN PERSONAL DELIVERY");
+                        Toast.makeText(RequestDriverActivity.this, "NO SE ENCONTRO UN PERSONAL DELIVERY", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     else {
@@ -132,7 +132,7 @@ public class RequestDriverActivity extends AppCompatActivity {
                 String token = dataSnapshot.child("token").getValue().toString();
                 Map<String, String> map = new HashMap<>();
                 map.put("title", "SOLICITUD DE SERVICIO ");
-                map.put("body", "Un cliente esta solicitando un servicio");
+                map.put("body", "Un cliente esta solicitando un pedido");
                 FCMBody fcmBody = new FCMBody(token, "high", map);
                 mNotificationProvider.sendNotification(fcmBody).enqueue(new Callback<FCMResponse>() {
                     @Override

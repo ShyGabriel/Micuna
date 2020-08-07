@@ -73,7 +73,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     //ANIMACIONES CON LOTTIE
-    implementation 'com.airbnb.android:lottie:2.8.0'
+    implementation 'com.airbnb.android:lottie:3.0.3'
 
     implementation 'com.google.firebase:firebase-messaging:20.1.5'  //notificacion push
 

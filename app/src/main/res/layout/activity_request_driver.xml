@@ -15,15 +15,15 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             app:lottie_imageAssetsFolder="assets"
-            app:lottie_fileName="3532-car.json"
+            app:lottie_fileName="17100-food.json"
             android:layout_gravity="center"
             app:lottie_loop="true"
             android:scaleType="centerCrop"
             app:lottie_autoPlay="true"
-            android:layout_margin="30dp"/>
+            android:layout_margin="60dp"/>
 
 
         <TextView
@@ -47,7 +47,7 @@
                 android:id="@+id/btnCancelRequest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CANCELAR VIAJE"
+                android:text="CANCELAR PEDIDO"
                 android:background="@drawable/bgnormal"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:textColor="@color/colorWhite"

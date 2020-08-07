@@ -14,6 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <service android:name=".services.MyFirebaseMessagingClient"
+            >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
         <activity android:name=".comidas.tacos"></activity>
         <activity android:name=".comidas.gaseosa" />
         <activity android:name=".comidas.hamburguesa" />
@@ -25,6 +33,12 @@
         <activity android:name=".comidas.fast_food" />
         <activity android:name=".comidas.peruanito" />
         <activity android:name=".comidas.favoritos" />
+
+        <activity
+            android:name=".activities.cliente.DetailRequestActivity" />
+
+        <activity android:name=".activities.cliente.RequestDriverActivity"></activity>
+
 
         <activity android:name=".activities.SelectOptionAuth"
             android:parentActivityName=".activities.MainActivity"></activity>
