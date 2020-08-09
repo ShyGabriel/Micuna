@@ -7,14 +7,19 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.micuna.R;
 import com.example.micuna.interfaces.iComunicaFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,12 +30,17 @@ import com.example.micuna.interfaces.iComunicaFragment;
  * create an instance of this fragment.
  */
 public class HomewFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    FirebaseDatabase database;
+    DatabaseReference category;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    TextView textFullName;
 
-    // TODO: Rename and change types of parameters
+    RecyclerView recycler_menu;
+    RecyclerView.LayoutManager layoutManager;
+
     private String mParam1;
     private String mParam2;
 
@@ -82,10 +92,7 @@ public class HomewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -93,6 +100,14 @@ public class HomewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         vista =inflater.inflate(R.layout.fragment_homew, container, false);
+
+        database = FirebaseDatabase.getInstance();
+        category = database.getReference("Category");
+
+            recycler_menu = vista.findViewById(R.id.recycler_me);
+            recycler_menu.setHasFixedSize(true);
+            layoutManager = new LinearLayoutManager(getActivity());
+            recycler_menu.setLayoutManager(layoutManager);
 
         mcardView1 = vista.findViewById(R.id.pollo);
         mcardView2 = vista.findViewById(R.id.pizza);

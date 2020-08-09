@@ -32,7 +32,7 @@
 
                 <TextView
                     android:id="@+id/menu_name"
-                    android:textSize="35dp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorNegro"
                     android:layout_width="wrap_content"
@@ -40,7 +40,8 @@
                     android:text="Favoritos"/>
 
                 <TextView
-                    android:textSize="15dp"
+                    android:id="@+id/menu_desc"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

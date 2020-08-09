@@ -1,16 +1,14 @@
-package com.example.micuna.comidas;
+package com.example.micuna.activities.cliente;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.micuna.R;
-
-public class gaseosa extends AppCompatActivity {
+public class ListFood extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gaseosa);
+        setContentView(R.layout.activity_list_food);
     }
 }
