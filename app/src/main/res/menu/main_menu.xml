@@ -6,13 +6,13 @@
         android:title="Home"
         android:icon="@drawable/ic_home" />
 
-    <item
+   <!-- <item
         android:id="@+id/menu_search"
         android:title="Buscar"
-        android:icon="@drawable/ic_search" />
+        android:icon="@drawable/ic_search" /> -->
 
     <item
-        android:id="@+id/menu_order"
+        android:id="@+id/menu_lista"
         android:title="Ordenar"
         android:icon="@drawable/ic_order" />
 

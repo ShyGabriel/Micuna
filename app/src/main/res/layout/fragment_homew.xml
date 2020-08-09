@@ -385,13 +385,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="0dp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                android:id="@+id/recycler_me">
-
-            </androidx.recyclerview.widget.RecyclerView>
 
       <!--      <androidx.cardview.widget.CardView
                 android:id="@+id/peruanito"

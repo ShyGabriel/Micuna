@@ -1,69 +1,103 @@
 package com.example.micuna.activities.cliente;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.micuna.R;
+
+import com.example.micuna.ViewHolder.CategoryAdapter;
 import com.example.micuna.activities.MainActivity;
-import com.example.micuna.comidas.antojos;
-import com.example.micuna.comidas.bebidas;
-import com.example.micuna.comidas.donuts;
-import com.example.micuna.comidas.fast_food;
-import com.example.micuna.comidas.favoritos;
-import com.example.micuna.comidas.gaseosa;
-import com.example.micuna.comidas.hamburguesa;
-import com.example.micuna.comidas.peruanito;
-import com.example.micuna.comidas.pizza;
-import com.example.micuna.comidas.pollo_brasa;
-import com.example.micuna.comidas.tacos;
+
 import com.example.micuna.fragments.HomewFragment;
+import com.example.micuna.fragments.OrdenesFragment;
 import com.example.micuna.fragments.OrderFragment;
+import com.example.micuna.fragments.ProfileConductorFragment;
 import com.example.micuna.fragments.ProfileFragment;
+import com.example.micuna.fragments.SearchConductorFragment;
 import com.example.micuna.fragments.SearchFragment;
 import com.example.micuna.include.ContenidoToolbar;
+import com.example.micuna.interfaces.ItemClickListener;
 import com.example.micuna.interfaces.iComunicaFragment;
+import com.example.micuna.modelo.Category;
+import com.example.micuna.modelo.User;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class ContenidoCliente extends AppCompatActivity implements iComunicaFragment, GoogleApiClient.OnConnectionFailedListener {
+public class ContenidoCliente extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     BottomNavigationView mBottonNavigation;
     TextView nameTextView, emailTextView, idTextView;
     ImageView photoImageView;
     GoogleApiClient googleApiClient;
     FirebaseAuth firebaseAuth;
-    FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private RecyclerView recycler_menu;
+    CategoryAdapter cAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contenido_cliente);
 
-        ContenidoToolbar.show(this);
-        //MyToolbar.show(this,"Cliente",true);
+        Toolbar toolbar = findViewById(R.id.toolbar_contenido);
+        setSupportActionBar(toolbar);
 
-        photoImageView = findViewById(R.id.photoImageView);
-        nameTextView = findViewById(R.id.nameTextView);
-        emailTextView = findViewById(R.id.emailTextView);
-        idTextView = findViewById(R.id.idTextView);
+        //Recycler
+        recycler_menu = findViewById(R.id.recycler);
+        recycler_menu.setHasFixedSize(true);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        recycler_menu.setLayoutManager(manager);
 
 
+        FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Category"),Category.class)
+                .build();
+
+        cAdapter = new CategoryAdapter(options);
+        recycler_menu.setAdapter(cAdapter);
+
+        cAdapter.setOnClickListener(new CategoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent foodlist = new Intent(ContenidoCliente.this,ListFood.class);
+                foodlist.putExtra("CategoryId",cAdapter.getRef(position).getKey());
+                startActivity(foodlist);
+            }
+        });
+
+        //Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -74,7 +108,7 @@ public class ContenidoCliente extends AppCompatActivity implements iComunicaFrag
                 .build();
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+   /*     firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -84,10 +118,10 @@ public class ContenidoCliente extends AppCompatActivity implements iComunicaFrag
                     goMainScreen();
                 }
             }
-        };
+        };*/
 
-        //FRAGMENT PANTALLA DE INICIO
-        showSelectedFragment(new HomewFragment());
+
+     /*   showSelectedFragment(new HomewFragment());
 
         mBottonNavigation = (BottomNavigationView) findViewById(R.id.botonNavigation);
 
@@ -114,9 +148,52 @@ public class ContenidoCliente extends AppCompatActivity implements iComunicaFrag
 
                 return true;
             }
+        });*/
+
+        mBottonNavigation = findViewById(R.id.botonNavigation);
+        mBottonNavigation.setSelectedItemId(R.id.menu_home);
+
+        mBottonNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+
+                    case R.id.menu_home:
+                        return true;
+
+                    case R.id.menu_lista:
+                        startActivity(new Intent(getApplicationContext(),
+                                ListaClienteActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.menu_profile:
+                        startActivity(new Intent(getApplicationContext(),
+                                PerfilClienteActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                }
+
+                return false;
+            }
         });
+
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        cAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        cAdapter.stopListening();
+    }
 
     private void setUserData(FirebaseUser user){
         nameTextView.setText(user.getDisplayName());
@@ -132,30 +209,13 @@ public class ContenidoCliente extends AppCompatActivity implements iComunicaFrag
     }
 
 
-             /* ♦ METODO QUE PERMTE ELEGIR EL FRAGMENT ♦*/
 
-    private void showSelectedFragment(Fragment fragment){
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment)
-        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-
-
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if (firebaseAuthListener != null){
-            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,70 +241,10 @@ public class ContenidoCliente extends AppCompatActivity implements iComunicaFrag
         return true;
     }
 
-    @Override
-    public void pollo() {
-        Intent intent = new Intent(ContenidoCliente.this, pollo_brasa.class);
-        startActivity(intent);
-    }
 
     @Override
-    public void pizza() {
-        Intent intent = new Intent(ContenidoCliente.this, pizza.class);
-        startActivity(intent);
-    }
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
-    @Override
-    public void donuts() {
-        Intent intent = new Intent(ContenidoCliente.this, donuts.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void hamburguesa() {
-        Intent intent = new Intent(ContenidoCliente.this, hamburguesa.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void gaseosa() {
-        Intent intent = new Intent(ContenidoCliente.this, gaseosa.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void tacos() {
-        Intent intent = new Intent(ContenidoCliente.this, tacos.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void favoritos() {
-        Intent intent = new Intent(ContenidoCliente.this, favoritos.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void peruanito(){
-        Intent intent = new Intent(ContenidoCliente.this, peruanito.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void fastfood() {
-        Intent intent = new Intent(ContenidoCliente.this, fast_food.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void antojos() {
-        Intent intent = new Intent(ContenidoCliente.this, antojos.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void bebidas() {
-        Intent intent = new Intent(ContenidoCliente.this, bebidas.class);
-        startActivity(intent);
     }
 
 

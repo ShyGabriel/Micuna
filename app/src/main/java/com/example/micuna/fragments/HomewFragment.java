@@ -104,24 +104,6 @@ public class HomewFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
 
-            recycler_menu = vista.findViewById(R.id.recycler_me);
-            recycler_menu.setHasFixedSize(true);
-            layoutManager = new LinearLayoutManager(getActivity());
-            recycler_menu.setLayoutManager(layoutManager);
-
-        mcardView1 = vista.findViewById(R.id.pollo);
-        mcardView2 = vista.findViewById(R.id.pizza);
-        mcardView3 = vista.findViewById(R.id.donuts);
-        mcardView4 = vista.findViewById(R.id.hamburguesa);
-        mcardView5 = vista.findViewById(R.id.gaseosa);
-        mcardView6 = vista.findViewById(R.id.taco);
-
-
-        mcardView7 = vista.findViewById(R.id.favoritos);
-        mcardView8 = vista.findViewById(R.id.peruanito);
-        mcardView9 = vista.findViewById(R.id.fastfood);
-        mcardView10 = vista.findViewById(R.id.antojos);
-        mcardView11 = vista.findViewById(R.id.bebidas);
 
         mcardView1.setOnClickListener(new View.OnClickListener() {
             @Override
