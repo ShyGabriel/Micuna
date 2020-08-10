@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 
 
 import com.example.micuna.R;
+import com.example.micuna.ViewHolder.DetailViewHolder;
 import com.example.micuna.ViewHolder.FoodViewHolder;
 import com.example.micuna.ViewHolder.MyAdapter;
 import com.example.micuna.modelo.Food;
@@ -43,6 +45,7 @@ public class ListFood extends AppCompatActivity {
     ArrayList<Food> arrayList;
     FirebaseRecyclerOptions<Food> options;
     FirebaseRecyclerAdapter<Food, FoodViewHolder> adapter;
+    FoodViewHolder mHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +92,21 @@ public class ListFood extends AppCompatActivity {
 
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull FoodViewHolder holder, int i, @NonNull Food food) {
+            protected void onBindViewHolder(@NonNull FoodViewHolder holder, final int i, @NonNull Food food) {
                 holder.textfood.setText(food.getName());
                 holder.descfood.setText(food.getDescription());
+                holder.preciofood.setText(food.getPrice());
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ListFood.this, FoodDetail.class);
+                        intent.putExtra("FoodKey",getRef(i).getKey());
+                        startActivity(intent);
+
+                    }
+                });
+
             }
 
             @NonNull
@@ -102,6 +117,7 @@ public class ListFood extends AppCompatActivity {
 
                 return new FoodViewHolder(view);
             }
+
         };
 
 
@@ -150,6 +166,7 @@ public class ListFood extends AppCompatActivity {
                     recyclerView.setAdapter(myAdapter);
 
                     myAdapter.notifyDataSetChanged();
+
 
                 }
             }
