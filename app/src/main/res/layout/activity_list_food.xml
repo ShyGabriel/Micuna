@@ -7,7 +7,11 @@
     tools:context=".activities.cliente.ListFood">
 
     <EditText
-    android:id="@+id/editText"
+        android:id="@+id/editText"
+        android:layout_margin="20dp"
+        android:hint="Busca tu comida..."
+        android:background="@drawable/bgcolorsecond"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

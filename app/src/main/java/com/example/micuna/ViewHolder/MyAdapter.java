@@ -51,20 +51,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
         Food categoryFood = arrayList.get(position);
 
         holder.namefood.setText(categoryFood.getName());
-        holder.descfood.setText(categoryFood.getDescription());
+
         holder.pricfood.setText(categoryFood.getPrice());
 
     }
 
     public class MyAdapterViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView namefood, descfood, pricfood;
+        public TextView namefood, pricfood;
 
         public MyAdapterViewHolder(View itemView) {
             super(itemView);
 
             namefood = itemView.findViewById(R.id.food_text);
-            descfood = itemView.findViewById(R.id.desc_text);
+
             pricfood = itemView.findViewById(R.id.food_price);
 
         }
