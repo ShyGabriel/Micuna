@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 
 
 import com.example.micuna.R;
+import com.example.micuna.ViewHolder.DetailViewHolder;
 import com.example.micuna.ViewHolder.FoodViewHolder;
 import com.example.micuna.ViewHolder.MyAdapter;
 import com.example.micuna.modelo.Food;
@@ -33,13 +36,10 @@ import java.util.ArrayList;
 
 public class ListFood extends AppCompatActivity {
     RecyclerView recyclerView;
-
-    RecyclerView.LayoutManager layoutManager;
     DatabaseReference databaseReference;
     FirebaseDatabase database;
     EditText editText;
     String categoryId="";
-    SearchView searchView;
     ArrayList<Food> arrayList;
     FirebaseRecyclerOptions<Food> options;
     FirebaseRecyclerAdapter<Food, FoodViewHolder> adapter;
@@ -52,10 +52,16 @@ public class ListFood extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_food);
         recyclerView.setHasFixedSize(true);
 
+        //mostrar item de las listas
+        if (getIntent() != null)
+            categoryId = getIntent().getStringExtra("CategoryId");
+        if (!categoryId.isEmpty() && categoryId != null){
+            loadListFood();
+        }
+
+        //mostrar datos buscados
         arrayList = new ArrayList<>();
         editText = findViewById(R.id.editText);
-
-
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,20 +84,27 @@ public class ListFood extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Foods");
         options = new FirebaseRecyclerOptions.Builder<Food>()
-            .setQuery(databaseReference,Food.class).build();
+                .setQuery(databaseReference,Food.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull FoodViewHolder holder, int i, @NonNull Food food) {
+            protected void onBindViewHolder(@NonNull FoodViewHolder holder, final int i, @NonNull Food food) {
                 holder.textfood.setText(food.getName());
-                holder.descfood.setText(food.getDescription());
+
+                holder.preciofood.setText(food.getPrice());
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ListFood.this, FoodDetail.class);
+                        intent.putExtra("FoodKey",getRef(i).getKey());
+                        startActivity(intent);
+
+                    }
+                });
+
             }
 
             @NonNull
@@ -102,31 +115,38 @@ public class ListFood extends AppCompatActivity {
 
                 return new FoodViewHolder(view);
             }
-        };
 
+        };
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),1);
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter.startListening();
         recyclerView.setAdapter(adapter);
 
+    }
 
+    private void loadListFood() {
+        options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(databaseReference,Food.class).build();
+        adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull FoodViewHolder foodholder, int i, @NonNull Food food) {
 
+                foodholder.textfood.setText(food.getName());
+                foodholder.preciofood.setText(food.getDescription());
 
+            }
 
+            @NonNull
+            @Override
+            public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                databaseReference.orderByChild("menuId").equalTo(categoryId);
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item, parent, false);
 
-      //  recyclerView.setHasFixedSize(true);
-     //   recyclerView.setLayoutManager(new LinearLayoutManager(ListFood.this));
-     //   recyclerView.setAdapter(adapter);
+                return new FoodViewHolder(v);
+            }
+        };
 
-
-
-
-    /*    if (getIntent() != null)
-            categoryId = getIntent().getStringExtra("CategoryId");
-        if (!categoryId.isEmpty() && categoryId != null){
-            loadListFood(categoryId);
-        }*/
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -136,29 +156,36 @@ public class ListFood extends AppCompatActivity {
                 .startAt(ese)
                 .endAt(ese +"\uf8ff");
 
-        query.addValueEventListener(new ValueEventListener() {
+        options = new FirebaseRecyclerOptions.Builder<Food>()
+                .setQuery(query,Food.class).build();
+
+        adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(options) {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()){
-                    arrayList.clear();
-                    for (DataSnapshot dss: dataSnapshot.getChildren()){
-                        final Food categoryFood = dss.getValue(Food.class);
-                        arrayList.add(categoryFood);
+            protected void onBindViewHolder(@NonNull FoodViewHolder holder, final int i, @NonNull Food food) {
+                holder.textfood.setText(food.getName());
+                holder.preciofood.setText(food.getPrice());
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ListFood.this, FoodDetail.class);
+                        intent.putExtra("FoodKey",getRef(i).getKey());
+                        startActivity(intent);
                     }
-
-                    MyAdapter myAdapter = new MyAdapter(getApplicationContext(),arrayList);
-                    recyclerView.setAdapter(myAdapter);
-
-                    myAdapter.notifyDataSetChanged();
-
-                }
+                });
             }
 
+            @NonNull
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.food_item,parent,false);
 
+                return new FoodViewHolder(view);
             }
-        });
+
+        };
+         adapter.startListening();
+        recyclerView.setAdapter(adapter);
     }
 
 
@@ -173,7 +200,7 @@ public class ListFood extends AppCompatActivity {
     @Override
     protected void onStop() {
         if (adapter!=null)
-        adapter.stopListening();
+            adapter.stopListening();
         super.onStop();
     }
 

@@ -1,19 +1,14 @@
 package com.example.micuna.activities.cliente;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,26 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.micuna.R;
 
-import com.example.micuna.ViewHolder.CategoryAdapter;
+import com.example.micuna.ViewHolder.CatViewHolder;
 import com.example.micuna.activities.MainActivity;
 
-import com.example.micuna.fragments.HomewFragment;
-import com.example.micuna.fragments.OrdenesFragment;
-import com.example.micuna.fragments.OrderFragment;
-import com.example.micuna.fragments.ProfileConductorFragment;
-import com.example.micuna.fragments.ProfileFragment;
-import com.example.micuna.fragments.SearchConductorFragment;
-import com.example.micuna.fragments.SearchFragment;
-import com.example.micuna.include.ContenidoToolbar;
-import com.example.micuna.interfaces.ItemClickListener;
-import com.example.micuna.interfaces.iComunicaFragment;
 import com.example.micuna.modelo.Category;
-import com.example.micuna.modelo.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.Auth;
@@ -48,13 +31,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 public class ContenidoCliente extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
@@ -63,8 +44,11 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
     ImageView photoImageView;
     GoogleApiClient googleApiClient;
     FirebaseAuth firebaseAuth;
-    private RecyclerView recycler_menu;
-    CategoryAdapter cAdapter;
+    RecyclerView recyclerView;
+    FirebaseRecyclerOptions<Category> options;
+    FirebaseRecyclerAdapter<Category, CatViewHolder> adapter;
+    DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,27 +59,13 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
         setSupportActionBar(toolbar);
 
         //Recycler
-        recycler_menu = findViewById(R.id.recycler);
-        recycler_menu.setHasFixedSize(true);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        recycler_menu.setLayoutManager(manager);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Category");
 
+        recyclerView=findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setHasFixedSize(true);
 
-        FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Category"),Category.class)
-                .build();
-
-        cAdapter = new CategoryAdapter(options);
-        recycler_menu.setAdapter(cAdapter);
-
-        cAdapter.setOnClickListener(new CategoryAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent foodlist = new Intent(ContenidoCliente.this,ListFood.class);
-                foodlist.putExtra("CategoryId",cAdapter.getRef(position).getKey());
-                startActivity(foodlist);
-            }
-        });
+        LoadData();
 
         //Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -108,47 +78,7 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
                 .build();
 
         firebaseAuth = FirebaseAuth.getInstance();
-   /*     firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null){
-                    setUserData(user);
-                }else {
-                    goMainScreen();
-                }
-            }
-        };*/
 
-
-     /*   showSelectedFragment(new HomewFragment());
-
-        mBottonNavigation = (BottomNavigationView) findViewById(R.id.botonNavigation);
-
-        mBottonNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                if (menuItem.getItemId() == R.id.menu_home){
-                    showSelectedFragment(new HomewFragment());
-                }
-
-                if (menuItem.getItemId() == R.id.menu_search){
-                    showSelectedFragment(new SearchFragment());
-
-                }
-
-                if (menuItem.getItemId() == R.id.menu_order){
-                    showSelectedFragment(new OrderFragment());
-                }
-
-                if (menuItem.getItemId() == R.id.menu_profile){
-                    showSelectedFragment(new ProfileFragment());
-                }
-
-                return true;
-            }
-        });*/
 
         mBottonNavigation = findViewById(R.id.botonNavigation);
         mBottonNavigation.setSelectedItemId(R.id.menu_home);
@@ -183,17 +113,43 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        cAdapter.startListening();
+    private void LoadData() {
+
+        options = new FirebaseRecyclerOptions.Builder<Category>().setQuery(databaseReference,Category.class).build();
+        adapter = new FirebaseRecyclerAdapter<Category, CatViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull CatViewHolder holder, final int i, @NonNull final Category category) {
+                holder.textname.setText(category.getName());
+                holder.textdesc.setText(category.getDescription());
+                Picasso.get().load(category.getImage()).into(holder.imageView);
+
+                holder.vi.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ContenidoCliente.this, ListFood.class);
+
+                        intent.putExtra("CategoryId",adapter.getRef(i).getKey());
+                        startActivity(intent);
+
+                    }
+                });
+            }
+
+            @NonNull
+            @Override
+            public CatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item, parent, false);
+
+                return new CatViewHolder(v);
+            }
+        };
+
+        adapter.startListening();
+        recyclerView.setAdapter(adapter);
+
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        cAdapter.stopListening();
-    }
 
     private void setUserData(FirebaseUser user){
         nameTextView.setText(user.getDisplayName());
