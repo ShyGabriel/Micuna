@@ -6,12 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.micuna.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PerfilClienteActivity extends AppCompatActivity {
     BottomNavigationView mBottonNavigation;
+    TextView mtxtnombre, mtxtcorreo;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +28,27 @@ public class PerfilClienteActivity extends AppCompatActivity {
 
         mBottonNavigation = findViewById(R.id.botonNavigation);
         mBottonNavigation.setSelectedItemId(R.id.menu_profile);
+
+        mtxtnombre = findViewById(R.id.txtUsuario);
+        mtxtcorreo = findViewById(R.id.txtEmail);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    String nombre = dataSnapshot.child("name").getValue(String.class);
+                    String correo = dataSnapshot.child("email").getValue(String.class);
+
+                    mtxtnombre.setText(nombre);
+                    mtxtcorreo.setText(correo);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         mBottonNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
