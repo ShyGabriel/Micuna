@@ -151,18 +151,6 @@ public class ContenidoCliente extends AppCompatActivity implements GoogleApiClie
     }
 
 
-    private void setUserData(FirebaseUser user){
-        nameTextView.setText(user.getDisplayName());
-        emailTextView.setText(user.getEmail());
-        idTextView.setText(user.getUid());
-        Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
-    }
-
-    private void goMainScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
 
 

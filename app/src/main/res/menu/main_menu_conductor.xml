@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_order" />
 
     <item
-        android:id="@+id/menu_search_conductor"
+        android:id="@+id/menu_map_conductor"
         android:title="Buscar"
         android:icon="@drawable/ic_search" />
 

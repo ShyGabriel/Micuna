@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.micuna.R;
 import com.example.micuna.activities.cliente.ContenidoCliente;
+import com.example.micuna.activities.cliente.PerfilClienteActivity;
 import com.example.micuna.activities.cliente.RegistroCliente;
 import com.example.micuna.activities.conductor.ContenidoConductor;
 import com.example.micuna.activities.conductor.RegistroConductor;
@@ -217,7 +218,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void login() {
-        String email = mTextInputEmail.getText().toString();
+        final String email = mTextInputEmail.getText().toString();
         String password = mTextInputPassword.getText().toString();
         mDialog = new SpotsDialog.Builder().setContext(LoginActivity.this).setMessage("Espere un momento").build();
 

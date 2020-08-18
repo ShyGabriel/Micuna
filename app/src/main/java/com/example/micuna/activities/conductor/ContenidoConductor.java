@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 import com.example.micuna.R;
 import com.example.micuna.activities.LoginActivity;
 import com.example.micuna.activities.MainActivity;
+import com.example.micuna.activities.cliente.ListaClienteActivity;
+import com.example.micuna.activities.cliente.PerfilClienteActivity;
 import com.example.micuna.fragments.OrdenesFragment;
 import com.example.micuna.fragments.ProfileConductorFragment;
 import com.example.micuna.fragments.ProfileFragment;
@@ -63,6 +65,7 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
         emailTextView = findViewById(R.id.emailTextView);
         idTextView = findViewById(R.id.idTextView);
 
+        //Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -73,85 +76,47 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
                 .build();
 
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null){
-                    setUserData(user);
-                }else {
-                    goMainScreen();
-                }
-            }
-        };
-
-        showSelectedFragment(new OrdenesFragment());
-
         mBottonNavigation = findViewById(R.id.botonNavigation);
+        mBottonNavigation.setSelectedItemId(R.id.menu_ordenes_conductor);
 
         mBottonNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                if (menuItem.getItemId() == R.id.menu_ordenes_conductor){
-                    showSelectedFragment(new OrdenesFragment());
+                switch (menuItem.getItemId()){
+
+                    case R.id.menu_ordenes_conductor:
+                        return true;
+
+                    case R.id.menu_map_conductor:
+                        startActivity(new Intent(getApplicationContext(),
+                                MapConductorActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.menu_profile_conductor:
+                        startActivity(new Intent(getApplicationContext(),
+                                PerfilConductorActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
                 }
 
-                if (menuItem.getItemId() == R.id.menu_search_conductor){
-                    showSelectedFragment(new SearchConductorFragment());
-                }
-
-                if (menuItem.getItemId() == R.id.menu_profile_conductor){
-                    showSelectedFragment(new ProfileConductorFragment());
-                }
-
-                return true;
-
+                return false;
             }
         });
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
 
-    private void setUserData(FirebaseUser user){
-        nameTextView.setText(user.getDisplayName());
-        emailTextView.setText(user.getEmail());
-        idTextView.setText(user.getUid());
-        Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
-    }
-
-    private void goMainScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private void showSelectedFragment(Fragment fragment){
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.containerConductor,fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
 
-        if (firebaseAuthListener != null){
-            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-        }
-    }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -175,5 +140,5 @@ public class ContenidoConductor extends AppCompatActivity implements GoogleApiCl
 
         return true;
     }
-
+*/
 }

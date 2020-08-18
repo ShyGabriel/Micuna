@@ -3,19 +3,14 @@ package com.example.micuna.modelo;
 import java.io.Serializable;
 
 public class Cliente{
-    String id;
-    String name;
-    String email;
-    String image;
+    private String id;
+    private String name;
+    private String email;
+    private String image;
 
 
     public Cliente() {
 
-    }
-    public Cliente(String id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
     }
 
     public Cliente(String id, String name, String email, String image) {
@@ -56,4 +51,6 @@ public class Cliente{
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }
