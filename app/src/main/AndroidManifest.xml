@@ -13,7 +13,8 @@
         android:roundIcon="@drawable/logomicuna"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.conductor.MapConductorActivity"></activity>
+        <activity android:name=".activities.cliente.MapClientActivity"></activity>
+        <activity android:name=".activities.conductor.MapConductorActivity" />
         <activity android:name=".activities.conductor.PerfilConductorActivity" />
         <activity android:name=".activities.cliente.FoodDetail" />
         <activity

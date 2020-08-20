@@ -19,13 +19,12 @@ public class DetailViewHolder extends RecyclerView.ViewHolder {
     public View v;
 
 
-
     public DetailViewHolder(@NonNull View itemView) {
         super(itemView);
-         textfood = itemView.findViewById(R.id.nameFoodDetail);
-        descfood= itemView.findViewById(R.id.descFoodDetail);
-        preciofood = itemView.findViewById(R.id.priceFoodDetail);
-        imageView = itemView.findViewById(R.id.picFoodDetail);
+            textfood = itemView.findViewById(R.id.nameFoodDetail);
+            descfood= itemView.findViewById(R.id.descFoodDetail);
+            preciofood = itemView.findViewById(R.id.priceFoodDetail);
+            imageView = itemView.findViewById(R.id.picFoodDetail);
 
             v = itemView;
     }

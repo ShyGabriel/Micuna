@@ -4,9 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activities.conductor.MapConductorActivity">
 
     <include layout="@layout/toolbar_contenido" />
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="660dp"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/botonNavigation"
@@ -19,6 +27,17 @@
         app:itemIconTint="@color/colorBlanco"
         app:menu="@menu/main_menu_conductor"
         android:padding="5dp"
+        />
+
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CONECTARSE"
+        android:layout_gravity="bottom"
+        android:layout_margin="90dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/bgnormal"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
