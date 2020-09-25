@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:hint="Busca tu comida..."
         android:background="@drawable/bgcolorsecond"
         android:padding="10dp"
